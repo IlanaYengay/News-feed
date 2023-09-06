@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} Newspaper {% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <header class="p-3 mb-3 border-bottom bg-light">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <a class="navbar-brand" href="/">Newspaper</a>
+                <!-- You can add a navigation menu here if needed -->
+                {% if user.is_authenticated %}
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'add_article' %}"> Add Article</a>
+                </div>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'add_category' %}"> Add Category</a>
+                </div>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'add_tags' %}"> Add Tags</a>
+                </div>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'profile' user.pk %}">Profile: {{ user.username }}</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Exit</a>
+                </div>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'profile' user.pk %}"> Profile</a>
+                </div>
+
+                {% else %}
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'login' %}"> Login</a>
+                </div>
+                 <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'register' %}"> Register</a>
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="container mt-5">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer class="p-3 mt-5 border-top bg-light">
+        <div class="container">
+            <p class="text-center">© 2023 Newspaper. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
